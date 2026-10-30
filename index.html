@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reproduciendo Audio...</title>
+</head>
+<body onclick="playAudio()">
+  <audio id="miAudio" autoplay loop preload="auto">
+    <source src="https://files.catbox.moe/i7z859.ogg" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const audio = document.getElementById('miAudio');
+    // Intenta reproducir automáticamente al cargar
+    window.addEventListener('DOMContentLoaded', () => {
+      audio.play().catch(() => {
+        console.log("El navegador requiere interacción previa del usuario.");
+      });
+    });
+
+    // Como respaldo, si el navegador bloquea el sonido, suena al dar el primer toque en la pantalla
+    function playAudio() {
+      audio.play();
+    }
+  </script>
+</body>
+</html>
