@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reproduciendo Audio...</title>
+  <title>Para ti 🎶</title>
   <style>
     body {
       display: flex;
@@ -11,41 +11,40 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      background-color: #f0f2f5;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       margin: 0;
+      cursor: pointer;
     }
     .card {
       background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 90%;
     }
-    button {
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
+    h1 { color: #333; font-size: 1.5rem; margin-bottom: 10px; }
+    p { color: #666; font-size: 1rem; }
+    .pulse {
+      font-size: 3rem;
       margin-top: 15px;
+      animation: bounce 1.5s infinite;
     }
-    button:hover {
-      background-color: #45a049;
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
     }
   </style>
 </head>
-<body>
+<body onclick="activarAudio()">
 
   <div class="card">
-    <h2>Reproduciendo Audio</h2>
-    <p>Si el audio no comienza automáticamente, toca el botón:</p>
-    <button onclick="playAudio()">🔊 Reproducir Audio</button>
+    <h1>Haz clic o toca en cualquier lugar</h1>
+    <p>Para comenzar la reproducción</p>
+    <div class="pulse">🎵</div>
   </div>
 
-  <!-- Asegúrate de que coincidan exactamente las mayúsculas: AudioQR1.mp3 -->
   <audio id="miAudio" loop preload="auto">
     <source src="AudioQR1.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
@@ -53,22 +52,23 @@
 
   <script>
     const audio = document.getElementById('miAudio');
+    let reproducido = false;
 
-    // Intentar reproducción automática al cargar la página
-    window.addEventListener('load', () => {
-      audio.play().catch(error => {
-        console.log("Reproducción automática bloqueada por el navegador:", error);
-      });
-    });
-
-    // Función de respaldo por interacción manual
-    function playAudio() {
-      audio.play().then(() => {
-        console.log("Audio reproducido correctamente.");
-      }).catch(error => {
-        alert("No se pudo reproducir el audio. Verifica que el archivo exista.");
-        console.error(error);
-      });
+    function activarAudio() {
+      if (!reproducido) {
+        audio.play().then(() => {
+          reproducido = true;
+          // Ocultar el texto de aviso una vez que empiece a sonar (opcional)
+          document.querySelector('.card').style.display = 'none';
+          document.body.style.cursor = 'default';
+        }).catch(error => {
+          console.log("Error al reproducir:", error);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
     }
   </script>
 </body>
