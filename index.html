@@ -4,60 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reproduciendo Audio...</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #1f1c2c, #928dab);
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      cursor: pointer;
-    }
-    .card {
-      padding: 30px;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-      max-width: 80%;
-    }
-    h1 { font-size: 1.5rem; margin-bottom: 10px; }
-    p { font-size: 0.95rem; opacity: 0.9; line-height: 1.4; }
-    .icon { font-size: 3.5rem; margin-bottom: 15px; }
-  </style>
 </head>
 <body onclick="playAudio()">
-  
-  <div class="card">
-    <div class="icon">🎵</div>
-    <h1>Reproduciendo audio...</h1>
-    <p>Si no suena automáticamente,<br><b>toca en cualquier parte de la pantalla</b></p>
-  </div>
-
-  <audio id="miAudio" loop preload="auto">
-    <source src="https://files.catbox.moe/i7z859.ogg" type="audio/ogg">
+  <audio id="miAudio" autoplay loop preload="auto">
+    <source src="https://files.catbox.moe/i7z859.ogg" type="audio/mpeg">
   </audio>
 
   <script>
     const audio = document.getElementById('miAudio');
-    
     // Intenta reproducir automáticamente al cargar
     window.addEventListener('DOMContentLoaded', () => {
       audio.play().catch(() => {
-        console.log("El navegador requiere interacción previa.");
+        console.log("El navegador requiere interacción previa del usuario.");
       });
     });
 
-    // Reproduce o reanuda al tocar la pantalla
+    // Como respaldo, si el navegador bloquea el sonido, suena al dar el primer toque en la pantalla
     function playAudio() {
       audio.play();
     }
   </script>
-
 </body>
 </html>
