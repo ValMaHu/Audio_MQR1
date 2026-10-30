@@ -45,7 +45,8 @@
     <div class="pulse">🎵</div>
   </div>
 
-  <audio id="miAudio" loop preload="auto">
+  <!-- Quitamos 'loop' para que no se repita -->
+  <audio id="miAudio" preload="auto">
     <source src="AudioQR1.mp3" type="audio/mpeg">
     Tu navegador no soporta el elemento de audio.
   </audio>
@@ -58,17 +59,12 @@
       if (!reproducido) {
         audio.play().then(() => {
           reproducido = true;
-          // Ocultar el texto de aviso una vez que empiece a sonar (opcional)
           document.querySelector('.card').style.display = 'none';
           document.body.style.cursor = 'default';
         }).catch(error => {
           console.log("Error al reproducir:", error);
         });
       }
-    }
-  </script>
-</body>
-</html>
     }
   </script>
 </body>
