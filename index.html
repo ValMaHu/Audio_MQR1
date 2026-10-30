@@ -4,24 +4,71 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reproduciendo Audio...</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f0f2f5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
-<body onclick="playAudio()">
-  <audio id="miAudio" autoplay loop preload="auto">
+<body>
+
+  <div class="card">
+    <h2>Reproduciendo Audio</h2>
+    <p>Si el audio no comienza automáticamente, toca el botón:</p>
+    <button onclick="playAudio()">🔊 Reproducir Audio</button>
+  </div>
+
+  <!-- Asegúrate de que coincidan exactamente las mayúsculas: AudioQR1.mp3 -->
+  <audio id="miAudio" loop preload="auto">
     <source src="AudioQR1.mp3" type="audio/mpeg">
+    Tu navegador no soporta el elemento de audio.
   </audio>
 
   <script>
     const audio = document.getElementById('miAudio');
-    // Intenta reproducir automáticamente al cargar
-    window.addEventListener('DOMContentLoaded', () => {
-      audio.play().catch(() => {
-        console.log("El navegador requiere interacción previa del usuario.");
+
+    // Intentar reproducción automática al cargar la página
+    window.addEventListener('load', () => {
+      audio.play().catch(error => {
+        console.log("Reproducción automática bloqueada por el navegador:", error);
       });
     });
 
-    // Como respaldo, si el navegador bloquea el sonido, suena al dar el primer toque en la pantalla
+    // Función de respaldo por interacción manual
     function playAudio() {
-      audio.play();
+      audio.play().then(() => {
+        console.log("Audio reproducido correctamente.");
+      }).catch(error => {
+        alert("No se pudo reproducir el audio. Verifica que el archivo exista.");
+        console.error(error);
+      });
     }
   </script>
 </body>
